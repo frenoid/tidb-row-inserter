@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: normans-row-inserter
+  namespace: default
+spec:
+  schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: row-inserter
+            image: frenoid/row-inserter:v1
+            env:
+            - name: MYSQL_HOST
+              value: "tidb-cluster-tidb.tidb.svc.cluster.local"
+            - name: MYSQL_USER
+              value: "norman"
+            - name: MYSQL_PASSWORD
+              value: "norman"
+            - name: MYSQL_PORT
+              value: "4000"
+            - name: MYSQL_DATABASE
+              value: "test"
+            imagePullPolicy: IfNotPresent
+          restartPolicy: OnFailure
