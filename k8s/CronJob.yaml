@@ -4,7 +4,7 @@ metadata:
   name: normans-row-inserter
   namespace: default
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "*/5 * * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 2
   jobTemplate:
@@ -13,7 +13,7 @@ spec:
         spec:
           containers:
           - name: row-inserter
-            image: frenoid/row-inserter:v1
+            image: frenoid/row-inserter:v2
             env:
             - name: MYSQL_HOST
               value: "tidb-cluster-tidb.tidb.svc.cluster.local"
@@ -25,5 +25,7 @@ spec:
               value: "4000"
             - name: MYSQL_DATABASE
               value: "test"
+            - name: NO_OF_ROWS
+              value: "200"
             imagePullPolicy: IfNotPresent
           restartPolicy: OnFailure
