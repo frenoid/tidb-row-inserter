@@ -19,6 +19,7 @@ def get_name(char_count: int) -> str:
 if __name__ == "__main__":
   print("START")
   print(MYSQL_HOST)
+  print("WRITING TO " + MYSQL_DATABASE + "." + "test_table")
   cnx = mysql.connector.connect(user=MYSQL_USER,
                               password=MYSQL_PASSWORD,
                               host=MYSQL_HOST,
