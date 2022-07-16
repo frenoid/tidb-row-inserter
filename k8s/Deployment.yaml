@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: row-inserter
+  namespace: db-stress
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: row-inserter
+  template:
+    metadata:
+      labels:
+        app: row-inserter
+    spec:
+      containers:
+      - name: row-selector
+        image: frenoid/row-inserter:v4
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: MYSQL_HOST
+            value: "tidb-norman-tidb.tidb-norman.svc.cluster.local"
+          - name: MYSQL_USER
+            value: "norman"
+          - name: MYSQL_PASSWORD
+            value: "norman"
+          - name: MYSQL_PORT
+            value: "4000"
+          - name: MYSQL_DATABASE
+            value: "test"
+          - name: MYSQL_TABLE 
+            value: "test_table"
+          - name: NO_OF_ROWS
+            value: "1"
+          - name: WRITE_MODE
+            value: "CONTINOUS"
+          - name: WRITE_INTERVAL
+            value: "10"
+
