@@ -1,6 +1,6 @@
-/* This can only be run on TiDB */
+/* this can be run on mysql */
 CREATE TABLE `test_table` (
-  `id` BIGINT AUTO_RANDOM,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` char(20) DEFAULT NULL,
   `last_name` char(20) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
